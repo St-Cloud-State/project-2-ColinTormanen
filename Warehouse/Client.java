@@ -36,6 +36,10 @@ public class Client implements Serializable {
         this.clientName = newClientName;
     }
 
+    public double getCredit() {
+        return creditBalance;
+    }
+
     // Equals method to compare clients by ID
     public boolean equals(String id) {
         return this.clientId.equals(id);

@@ -1,4 +1,9 @@
-
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.util.*;
+import java.text.*;
+import java.io.*;
 public class Context {
     public static final int IsUser = 1;
     public static final int IsClerk = 2;
@@ -35,7 +40,7 @@ public class Context {
         nextState[0][0] = -1; nextState[0][1] = 1; nextState[0][2] = 2; nextState[0][3] = 3; 
         nextState[1][0] = 0; nextState[1][1] = -2; nextState[1][2] = 2; nextState[1][3] = -2; 
         nextState[2][0] = 0; nextState[2][1] = 1; nextState[2][2] = -2; nextState[2][3] = 3; 
-        nextState[3][0] = 0; nextState[3][1] = -2; nextState[0][2] = 2; nextState[3][3] = -2; 
+        nextState[3][0] = 0; nextState[3][1] = -2; nextState[3][2] = 2; nextState[3][3] = -2; 
 
         currentState = 0;
         frame = new JFrame("Warehouse GUI");
@@ -46,7 +51,7 @@ public class Context {
     }
 
     public void changeState(int next) {
-        currentState = states[currentState][next];
+        currentState = nextState[currentState][next];
         if(currentState == -2) {
             System.out.println("An error has occured");
             terminate();
@@ -60,7 +65,7 @@ public class Context {
         System.exit(0);
     }
 
-    public static Context instace() {
+    public static Context instance() {
         if(context == null) context = new Context();
         return context;
     }
@@ -68,7 +73,7 @@ public class Context {
 
 
     public static void main(String[] args) {
-        Context.instace();
+        Context.instance();
         states[currentState].run();
     }
 

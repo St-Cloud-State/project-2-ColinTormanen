@@ -1,6 +1,12 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.util.*;
+import java.text.*;
+import java.io.*;
 public class LoginState extends WarehouseState implements ActionListener {
 
-    private BufferedReader reader = new BufferedReader(InputStreamReader(System.in));
+    private BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
     private Context context;
     private JFrame frame;
     private static LoginState instance;
@@ -36,7 +42,7 @@ public class LoginState extends WarehouseState implements ActionListener {
         String id = JOptionPane.showInputDialog(frame,"Please input the user id: ");
         if(Warehouse.instance().searchForClient(id) != null) {
             (Context.instance()).setLogin(Context.IsUser);
-            (Context.instance()).setUser(id);
+            (Context.instance()).setUserId(id);
             clear();
             (Context.instance()).changeState(1);
         }
@@ -63,16 +69,19 @@ public class LoginState extends WarehouseState implements ActionListener {
         frame = Context.instance().getFrame();
         frame.getContentPane().removeAll();
         frame.getContentPane().setLayout(new FlowLayout());
-        userButton = new JButton("user");
+        userButton = new JButton("client");
         clerkButton = new JButton("clerk");
         managerButton = new JButton("manager");
+        logoutButton = new JButton("logout");
         userButton.addActionListener(this);
         clerkButton.addActionListener(this);
         managerButton.addActionListener(this);
+        logoutButton.addActionListener(this);
         frame.getContentPane().add(this.userButton);
         frame.getContentPane().add(this.clerkButton);
         frame.getContentPane().add(this.managerButton);
-        framge.setVisible(true);
+        frame.getContentPane().add(this.logoutButton);
+        frame.setVisible(true);
         frame.paint(frame.getGraphics()); 
         frame.toFront();
         frame.requestFocus();
